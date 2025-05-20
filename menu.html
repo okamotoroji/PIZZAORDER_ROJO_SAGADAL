@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pizza Menu - Pizza Order</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+    <header class="bg-red-600 text-white py-4 shadow-md">
+        <div class="container mx-auto px-4 flex justify-between items-center">
+            <h1 class="text-3xl font-semibold">Pizza Order</h1>
+            <nav class="hidden md:block">
+                <ul class="flex space-x-6">
+                    <li><a href="index.html" class="hover:text-red-200 transition duration-300">Home</a></li>
+                    <li><a href="menu.html" class="hover:text-red-200 transition duration-300">Menu</a></li>
+                    <li><a href="reservation.html" class="hover:text-red-200 transition duration-300">Reservations</a></li>
+                    <li><a href="order.html" class="hover:text-red-200 transition duration-300">Order</a></li>
+                    <li><a href="contact.html" class="hover:text-red-200 transition duration-300">Contact</a></li>
+                    <li><a href="account.html" class="hover:text-red-200 transition duration-300">Account</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section id="menu" class="bg-white py-12">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-semibold text-red-700 text-center mb-8">Our Pizza Menu</h2>
+            <div id="menu-items" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-gray-800 text-white py-4">
+        <div class="container mx-auto px-4 text-center">
+            <p>© 2024 Pizza Order. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+    const menuItems = [
+        { name: "Margherita", ingredients: "Tomato sauce, Mozzarella, Basil", price: 100 },
+        { name: "Pepperoni", ingredients: "Tomato sauce, Mozzarella, Pepperoni", price: 120 },
+        { name: "Vegetarian", ingredients: "Tomato sauce, Mozzarella, Vegetables", price: 110 },
+        { name: "Hawaiian", ingredients: "Tomato sauce, Mozzarella, Ham, Pineapple", price: 130 },
+        { name: "Meat Feast", ingredients: "Tomato sauce, Mozzarella, Various Meats", price: 140 },
+        { name: "Four Cheese", ingredients: "Mozzarella, Gorgonzola, Fontina, Parmesan", price: 120 },
+         { name: "Coke", ingredients: "Drinks", price: 30 },
+
+    ];
+
+    const menuList = document.getElementById("menu-items");
+
+    function displayMenuItems() {
+        menuItems.forEach((item) => {
+            const menuItemDiv = document.createElement("div");
+            menuItemDiv.classList.add("bg-white", "rounded-lg", "shadow-md", "p-4", "flex", "flex-col", "justify-between");
+
+            menuItemDiv.innerHTML = `
+                <h3 class="text-xl font-semibold text-red-700 mb-2">${item.name}</h3>
+                <p class="text-gray-600 text-sm mb-2">${item.ingredients}</p>
+                <p class="text-lg font-bold text-gray-800 mt-auto">Price: ${item.price.toFixed(2)} PHP</p>
+            `;
+
+            menuList.appendChild(menuItemDiv);
+        });
+    }
+
+    displayMenuItems();
+    </script>
+</body>
+</html>

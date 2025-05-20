@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Success! - Pizza Order</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+    <header class="bg-red-600 text-white py-4 shadow-md">
+        <div class="container mx-auto px-4 flex justify-between items-center">
+            <h1 class="text-3xl font-semibold">Pizza Order</h1>
+            <nav class="hidden md:block">
+                <ul class="flex space-x-6">
+                    <li><a href="index.html" class="hover:text-red-200 transition duration-300">Home</a></li>
+                    <li><a href="menu.html" class="hover:text-red-200 transition duration-300">Menu</a></li>
+                    <li><a href="reservation.html" class="hover:text-red-200 transition duration-300">Reservations</a></li>
+                    <li><a href="order.html" class="hover:text-red-200 transition duration-300">Order</a></li>
+                    <li><a href="contact.html" class="hover:text-red-200 transition duration-300">Contact</a></li>
+                    <li><a href="account.html" class="hover:text-red-200 transition duration-300">Account</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section id="success" class="bg-white py-12">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-4xl font-bold text-green-600 mb-6">Success!</h2>
+            <p id="success-message" class="text-gray-700 text-xl mb-8">Your action was completed successfully.</p>
+            <a href="menu.html" class="bg-red-600 text-white py-3 px-6 rounded-full hover:bg-red-700 transition duration-300 text-lg">Back</a>
+        </div>
+    </section>
+
+    <footer class="bg-gray-800 text-white py-4">
+        <div class="container mx-auto px-4 text-center">
+            <p>© 2024 Pizza Order. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const successMessageElement = document.getElementById('success-message');
+            const message = sessionStorage.getItem('orderMessage'); // Get message from session storage
+
+            if (message) {
+                successMessageElement.textContent = message;
+                sessionStorage.removeItem('orderMessage'); // Clear the message after displaying
+            } else {
+                successMessageElement.textContent = 'Your request has been processed successfully.';
+            }
+        });
+    </script>
+</body>
+</html>

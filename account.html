@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Account - Pizza Order</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+    <header class="bg-red-600 text-white py-4 shadow-md">
+        <div class="container mx-auto px-4 flex justify-between items-center">
+            <h1 class="text-3xl font-semibold">Pizza Order</h1>
+            <nav class="hidden md:block">
+                <ul class="flex space-x-6">
+                    <li><a href="index.html" class="hover:text-red-200 transition duration-300">Home</a></li>
+                    <li><a href="menu.html" class="hover:text-red-200 transition duration-300">Menu</a></li>
+                    <li><a href="reservation.html" class="hover:text-red-200 transition duration-300">Reservations</a></li>
+                    <li><a href="order.html" class="hover:text-red-200 transition duration-300">Order</a></li>
+                    <li><a href="contact.html" class="hover:text-red-200 transition duration-300">Contact</a></li>
+                    <li><a href="account.html" class="hover:text-red-200 transition duration-300">Account</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section id="account" class="bg-gray-100 py-12">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-semibold text-red-700 text-center mb-8">My Account</h2>
+            <div class="bg-white shadow-md rounded-lg p-8 max-w-md mx-auto">
+                <div id="auth-section">
+                    <h3 class="text-xl font-semibold text-red-700 mb-4 text-center">Sign Up or Log In</h3>
+                    <form id="signup-form" class="mb-6">
+                        <h4 class="text-lg font-semibold text-gray-800 mb-3">Sign Up</h4>
+                        <div class="mb-4">
+                            <label for="signup-username" class="block text-gray-700 text-sm font-bold mb-2">Username:</label>
+                            <input type="text" id="signup-username" name="username" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
+                            <div id="signup-username-error" class="text-red-500 text-xs italic" style="display: none;"></div>
+                        </div>
+                        <div class="mb-4">
+                            <label for="signup-email" class="block text-gray-700 text-sm font-bold mb-2">Email:</label>
+                            <input type="email" id="signup-email" name="email" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
+                            <div id="signup-email-error" class="text-red-500 text-xs italic" style="display: none;"></div>
+                        </div>
+                        <div class="mb-4">
+                            <label for="signup-password" class="block text-gray-700 text-sm font-bold mb-2">Password:</label>
+                            <input type="password" id="signup-password" name="password" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" required>
+                            <div id="signup-password-error" class="text-red-500 text-xs italic" style="display: none;"></div>
+                        </div>
+                        <button type="submit" class="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full">Sign Up</button>
+                        <div id="signup-message" class="mt-4 text-center font-semibold"></div>
+                    </form>
+
+                    <hr class="my-6">
+
+                    <form id="login-form">
+                        <h4 class="text-lg font-semibold text-gray-800 mb-3">Log In</h4>
+                        <div class="mb-4">
+                            <label for="login-email" class="block text-gray-700 text-sm font-bold mb-2">Email:</label>
+                            <input type="email" id="login-email" name="email" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
+                            <div id="login-email-error" class="text-red-500 text-xs italic" style="display: none;"></div>
+                        </div>
+                        <div class="mb-6">
+                            <label for="login-password" class="block text-gray-700 text-sm font-bold mb-2">Password:</label>
+                            <input type="password" id="login-password" name="password" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" required>
+                            <div id="login-password-error" class="text-red-500 text-xs italic" style="display: none;"></div>
+                        </div>
+                        <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full">Log In</button>
+                        <div id="login-message" class="mt-4 text-center font-semibold"></div>
+                    </form>
+                </div>
+
+                <div id="welcome-section" class="text-center" style="display: none;">
+                    <h3 class="text-2xl font-semibold text-red-700 mb-4">Welcome, <span id="display-username"></span>!</h3>
+                    <p class="text-gray-700 text-lg mb-6">You are now logged in.</p>
+                    <button id="logout-button" class="bg-gray-600 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Log Out</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-gray-800 text-white py-4">
+        <div class="container mx-auto px-4 text-center">
+            <p>© 2024 Pizza Palace. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        const signupForm = document.getElementById('signup-form');
+        const loginForm = document.getElementById('login-form');
+        const authSection = document.getElementById('auth-section');
+        const welcomeSection = document.getElementById('welcome-section');
+        const displayUsername = document.getElementById('display-username');
+        const logoutButton = document.getElementById('logout-button');
+
+        // Simple client-side "authentication" for demonstration
+        let currentUser = localStorage.getItem('pizzaPalaceUser');
+
+        function showAuthSection() {
+            authSection.style.display = 'block';
+            welcomeSection.style.display = 'none';
+        }
+
+        function showWelcomeSection(username) {
+            displayUsername.textContent = username;
+            authSection.style.display = 'none';
+            welcomeSection.style.display = 'block';
+        }
+
+        signupForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            if (validateSignupForm()) {
+                const username = document.getElementById('signup-username').value;
+                const email = document.getElementById('signup-email').value;
+                const password = document.getElementById('signup-password').value;
+
+                // In a real application, you'd send this to a backend for user creation and storage
+                // For this example, we'll simulate a successful signup and then log in
+                console.log('Signing up:', { username, email, password });
+                localStorage.setItem('pizzaPalaceUser', username); // Store username for "login"
+                window.location.href = 'menu.html'; // Redirect to menu page after signup
+            }
+        });
+
+        loginForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            if (validateLoginForm()) {
+                const email = document.getElementById('login-email').value;
+                const password = document.getElementById('login-password').value;
+
+                // In a real application, you'd verify credentials against a backend
+                // For this example, we'll simulate a successful login if email and password are not empty
+                if (email && password) {
+                    const username = email.split('@')[0]; // Simple username from email
+                    localStorage.setItem('pizzaPalaceUser', username); // Store username for "login"
+                    window.location.href = 'menu.html'; // Redirect to menu page after login
+                } else {
+                    const messageElement = document.getElementById('login-message');
+                    messageElement.textContent = 'Invalid credentials. Please try again.';
+                    messageElement.style.color = 'red';
+                }
+            }
+        });
+
+        logoutButton.addEventListener('click', () => {
+            localStorage.removeItem('pizzaPalaceUser'); // Clear user from local storage
+            currentUser = null;
+            showAuthSection();
+            document.getElementById('login-email').value = '';
+            document.getElementById('login-password').value = '';
+            document.getElementById('login-message').textContent = 'You have been logged out.';
+            document.getElementById('login-message').style.color = 'green';
+        });
+
+        function validateSignupForm() {
+            const usernameInput = document.getElementById('signup-username');
+            const emailInput = document.getElementById('signup-email');
+            const passwordInput = document.getElementById('signup-password');
+            let valid = true;
+
+            // Validate Username
+            if (!usernameInput.value.trim()) {
+                document.getElementById('signup-username-error').textContent = 'Username is required';
+                document.getElementById('signup-username-error').style.display = 'block';
+                usernameInput.classList.add('border-red-500');
+                valid = false;
+            } else {
+                document.getElementById('signup-username-error').style.display = 'none';
+                usernameInput.classList.remove('border-red-500');
+            }
+
+            // Validate Email
+            const emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
+            if (!emailInput.value.trim()) {
+                document.getElementById('signup-email-error').textContent = 'Email is required';
+                document.getElementById('signup-email-error').style.display = 'block';
+                emailInput.classList.add('border-red-500');
+                valid = false;
+            } else if (!emailRegex.test(emailInput.value.trim())) {
+                document.getElementById('signup-email-error').textContent = 'Invalid email address';
+                document.getElementById('signup-email-error').style.display = 'block';
+                emailInput.classList.add('border-red-500');
+                valid = false;
+            } else {
+                document.getElementById('signup-email-error').style.display = 'none';
+                emailInput.classList.remove('border-red-500');
+            }
+
+            // Validate Password
+            if (passwordInput.value.length < 6) {
+                document.getElementById('signup-password-error').textContent = 'Password must be at least 6 characters long';
+                document.getElementById('signup-password-error').style.display = 'block';
+                passwordInput.classList.add('border-red-500');
+                valid = false;
+            } else {
+                document.getElementById('signup-password-error').style.display = 'none';
+                passwordInput.classList.remove('border-red-500');
+            }
+            return valid;
+        }
+
+        function validateLoginForm() {
+            const emailInput = document.getElementById('login-email');
+            const passwordInput = document.getElementById('login-password');
+            let valid = true;
+
+            // Validate Email
+            const emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
+            if (!emailInput.value.trim()) {
+                document.getElementById('login-email-error').textContent = 'Email is required';
+                document.getElementById('login-email-error').style.display = 'block';
+                emailInput.classList.add('border-red-500');
+                valid = false;
+            } else if (!emailRegex.test(emailInput.value.trim())) {
+                document.getElementById('login-email-error').textContent = 'Invalid email address';
+                document.getElementById('login-email-error').style.display = 'block';
+                emailInput.classList.add('border-red-500');
+                valid = false;
+            } else {
+                document.getElementById('login-email-error').style.display = 'none';
+                emailInput.classList.remove('border-red-500');
+            }
+
+            // Validate Password
+            if (!passwordInput.value.trim()) {
+                document.getElementById('login-password-error').textContent = 'Password is required';
+                document.getElementById('login-password-error').style.display = 'block';
+                passwordInput.classList.add('border-red-500');
+                valid = false;
+            } else {
+                document.getElementById('login-password-error').style.display = 'none';
+                passwordInput.classList.remove('border-red-500');
+            }
+            return valid;
+        }
+
+        // Initialize display based on login status (for a real app, this would check session/local storage)
+        if (currentUser) {
+            showWelcomeSection(currentUser);
+        } else {
+            showAuthSection();
+        }
+    </script>
+</body>
+</html>

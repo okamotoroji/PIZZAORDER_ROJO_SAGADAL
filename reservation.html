@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book a Table - Pizza Order</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+    <header class="bg-red-600 text-white py-4 shadow-md">
+        <div class="container mx-auto px-4 flex justify-between items-center">
+            <h1 class="text-3xl font-semibold">Pizza Order</h1>
+            <nav class="hidden md:block">
+                <ul class="flex space-x-6">
+                    <li><a href="index.html" class="hover:text-red-200 transition duration-300">Home</a></li>
+                    <li><a href="menu.html" class="hover:text-red-200 transition duration-300">Menu</a></li>
+                    <li><a href="reservation.html" class="hover:text-red-200 transition duration-300">Reservations</a></li>
+                    <li><a href="order.html" class="hover:text-red-200 transition duration-300">Order</a></li>
+                    <li><a href="contact.html" class="hover:text-red-200 transition duration-300">Contact</a></li>
+                    <li><a href="account.html" class="hover:text-red-200 transition duration-300">Account</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section id="reservations" class="bg-gray-100 py-12">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-semibold text-red-700 text-center mb-8">Book a Table</h2>
+            <form id="reservation-form" class="bg-white shadow-md rounded-lg p-8 max-w-md mx-auto">
+                <div class="mb-4">
+                    <label for="name" class="block text-gray-700 text-sm font-bold mb-2">Name:</label>
+                    <input type="text" id="name" name="name" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
+                    <div id="name-error" class="text-red-500 text-xs italic" style="display: none;"></div>
+                </div>
+                <div class="mb-4">
+                    <label for="email" class="block text-gray-700 text-sm font-bold mb-2">Email:</label>
+                    <input type="email" id="email" name="email" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
+                    <div id="email-error" class="text-red-500 text-xs italic" style="display: none;"></div>
+                </div>
+                <div class="mb-4">
+                    <label for="date" class="block text-gray-700 text-sm font-bold mb-2">Date:</label>
+                    <input type="date" id="date" name="date" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
+                    <div id="date-error" class="text-red-500 text-xs italic" style="display: none;"></div>
+                </div>
+                <div class="mb-4">
+                    <label for="time" class="block text-gray-700 text-sm font-bold mb-2">Time:</label>
+                    <input type="time" id="time" name="time" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
+                    <div id="time-error" class="text-red-500 text-xs italic" style="display: none;"></div>
+                </div>
+                <div class="mb-4">
+                    <label for="guests" class="block text-gray-700 text-sm font-bold mb-2">Number of Guests:</label>
+                    <input type="number" id="guests" name="guests" min="1" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
+                    <div id="guests-error" class="text-red-500 text-xs italic" style="display: none;"></div>
+                </div>
+                <button type="submit" class="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Reserve Now</button>
+                <div id="reservation-message" class="mt-4 text-center font-semibold"></div>
+            </form>
+        </div>
+    </section>
+
+    <footer class="bg-gray-800 text-white py-4">
+        <div class="container mx-auto px-4 text-center">
+            <p>© 2024 Pizza Palace. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+    const reservationForm = document.getElementById('reservation-form');
+    if(reservationForm){
+        reservationForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            if (validateForm('reservation-form')) {
+                // Here you would send the data to the server (e.g., using fetch)
+                const formData = new FormData(reservationForm);
+                const data = {};
+                formData.forEach((value, key) => {
+                    data[key] = value;
+                });
+
+                // Display a confirmation message
+                const messageElement = document.getElementById('reservation-message');
+                messageElement.textContent = `Reservation confirmed for ${data.name} on ${data.date} at ${data.time} for ${data.guests} guests.`;
+                messageElement.style.color = 'green';
+
+                // Clear the form
+                reservationForm.reset();
+                window.location.href = 'success.html'; // Redirect to success page
+            }
+        });
+    }
+
+        function validateForm(formId) {
+        const form = document.getElementById(formId);
+        const inputs = form.querySelectorAll('input, select');
+        let valid = true;
+
+        inputs.forEach(input => {
+            const errorId = input.id + '-error';
+            const errorElement = document.getElementById(errorId);
+
+            if (!input.value.trim()) {
+                errorElement.textContent = 'This field is required';
+                errorElement.style.display = 'block';
+                input.classList.add('border-red-500');
+                valid = false;
+            } else {
+                errorElement.style.display = 'none';
+                input.classList.remove('border-red-500');
+            }
+
+            if (input.type === 'email') {
+                const emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
+                if (!emailRegex.test(input.value.trim())) {
+                    errorElement.textContent = 'Invalid email address';
+                    errorElement.style.display = 'block';
+                    input.classList.add('border-red-500');
+                    valid = false;
+                }
+            }
+
+            if (input.type === 'date') {
+                const selectedDate = new Date(input.value);
+                const today = new Date();
+                today.setHours(0, 0, 0, 0);
+
+                if (selectedDate < today) {
+                    errorElement.textContent = 'Date cannot be in the past';
+                    errorElement.style.display = 'block';
+                    input.classList.add('border-red-500');
+                    valid = false;
+                }
+            }if (input.type === 'time') {
+                const selectedDate = document.getElementById('date').value;
+                if(selectedDate === new Date().toISOString().split('T')[0]){
+                    const selectedTime = input.value;
+                    const now = new Date();
+                    const hours = now.getHours();
+                    const minutes = now.getMinutes();
+                    const currentTime = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
+                    if (selectedTime < currentTime) {
+                        errorElement.textContent = 'Time cannot be in the past';
+                        errorElement.style.display = 'block';
+                        input.classList.add('border-red-500');
+                        valid = false;
+                    }
+                }
+            }
+            if (input.type === 'number' && input.id === 'guests') {
+                if (parseInt(input.value) <= 0) {
+                    errorElement.textContent = 'Number of guests must be greater than zero.';
+                    errorElement.style.display = 'block';
+                    input.classList.add('border-red-500');
+                    valid = false;
+                    
+                }
+            }
+        });
+
+        return valid;
+    }
+    </script>
+</body>
+</html>
